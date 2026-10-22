@@ -338,6 +338,8 @@ select:focus-visible {
 .cell {
   display: grid;
   min-width: 0;
+  /* Pista con mínimo cero: evita que la columna herede el ancho de la ficha y desborde la celda en tableros apretados. */
+  grid-template-columns: minmax(0, 1fr);
   aspect-ratio: 1;
   place-items: center;
   padding: 0;
@@ -385,10 +387,10 @@ select:focus-visible {
 .piece {
   display: block;
   width: var(--piece-size);
-  max-width: 78%;
+  max-width: 75%;
   aspect-ratio: 1;
   background: var(--piece-color, var(--color-one));
-  box-shadow: inset 0 -4px 0 var(--color-shadow-inset), 0 3px 6px var(--color-shadow);
+  box-shadow: inset 0 -4px 0 var(--color-shadow-inset), 0 2px 4px var(--color-shadow);
   transition: transform .2s, border-radius .2s, clip-path .2s;
 }
 
@@ -398,15 +400,16 @@ select:focus-visible {
 
 .piece--classic.piece--one { border-radius: 50%; }
 .piece--classic.piece--two { border-radius: 5px; }
-.piece--classic.piece--three { clip-path: polygon(50% 4%, 98% 92%, 2% 92%); }
+.piece--classic.piece--three { clip-path: polygon(50% 6%, 97% 86%, 3% 86%); }
 
 .piece--orbit.piece--one {
-  clip-path: polygon(50% 4%, 62% 34%, 96% 36%, 70% 58%, 80% 93%, 50% 72%, 20% 93%, 30% 58%, 4% 36%, 38% 34%);
+  clip-path: polygon(50% 2.5%, 62% 32.5%, 96% 34.5%, 70% 56.5%, 80% 91.5%, 50% 70.5%, 20% 91.5%, 30% 56.5%, 4% 34.5%, 38% 32.5%);
 }
 
 .piece--orbit.piece--two {
   transform: rotate(45deg) scale(.76);
   border-radius: 3px;
+  box-shadow: inset 0 -4px 0 var(--color-shadow-inset), 0 0 6px var(--color-shadow);
 }
 
 .piece--orbit.piece--three {
@@ -418,6 +421,7 @@ select:focus-visible {
 .piece--soft.piece--three {
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
+  box-shadow: inset 0 -4px 0 var(--color-shadow-inset), 0 0 6px var(--color-shadow);
 }
 
 .board-card__bottom {

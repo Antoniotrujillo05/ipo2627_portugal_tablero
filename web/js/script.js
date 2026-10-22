@@ -1,7 +1,8 @@
-import { GameModel } from "./model.js";
-import { GameView } from "./view.js";
-import { GameController } from "./controller.js";
+(() => {
+  const { GameModel, GameView, GameController } = window.EnFila;
 
-const model = new GameModel();
-const view = new GameView();
-new GameController(model, view);
+  const model = new GameModel();
+  const view = new GameView();
+  new GameController(model, view);
+
+})();
