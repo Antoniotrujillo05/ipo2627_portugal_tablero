@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f4ef" />
+    <meta name="description" content="Ordena las fichas del tablero para completar cada fila." />
+    <title>En fila — Juego de fichas</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/script.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="En fila, inicio">
+          <span class="brand__mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand__name">en fila<span class="brand__period">.</span></span>
+        </a>
+        <p class="topbar__note">Un juego de orden y observación</p>
+        <a class="topbar__link" href="#como-jugar">Cómo jugar <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main class="game" id="inicio">
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow"><span class="eyebrow__line"></span> Un pequeño reto diario</p>
+          <h1 id="page-title">Todo en<br /><em>su sitio.</em></h1>
+          <p class="intro__copy">Intercambia fichas hasta que cada fila tenga un solo tipo. Sin prisa: cada movimiento cuenta.</p>
+        </section>
+
+        <section class="play-area" aria-label="Partida">
+          <div class="board-card">
+            <div class="board-card__top">
+              <div>
+                <p class="eyebrow eyebrow--small">Tablero <span class="board-size" id="board-size">4 × 4</span></p>
+                <p class="board-card__hint" id="board-hint">Selecciona dos fichas o arrastra una.</p>
+              </div>
+              <button class="icon-button" id="new-game" type="button" aria-label="Empezar una nueva partida" title="Nueva partida">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4.8 9a7 7 0 0 1 12-2L20 12M4 17v-5h5m10.2 3a7 7 0 0 1-12 2L4 12" /></svg>
+              </button>
+            </div>
+            <div class="board-wrap">
+              <div class="board" id="board" role="group" aria-label="Tablero de fichas" aria-describedby="board-hint"></div>
+            </div>
+            <div class="board-card__bottom">
+              <span class="status-dot" aria-hidden="true"></span>
+              <p id="game-status" role="status" aria-live="polite">Tu partida está lista.</p>
+              <span class="board-card__ornament" aria-hidden="true">✳</span>
+            </div>
+          </div>
+
+          <aside class="settings" aria-labelledby="settings-title">
+            <div class="settings__heading">
+              <p class="eyebrow eyebrow--small">A tu manera</p>
+              <h2 id="settings-title">Ajustes</h2>
+            </div>
+            <form class="settings-form" id="settings-form">
+              <label class="field" for="dimension">
+                <span class="field__top"><span>Dimensión</span><span class="field__note" id="dimension-limit">máximo 12</span></span>
+                <span class="input-wrap"><input id="dimension" name="dimension" type="number" min="3" max="12" value="4" inputmode="numeric" /><span class="input-suffix">× N</span></span>
+              </label>
+              <fieldset class="field">
+                <legend class="field__top"><span>Tamaño de ficha</span></legend>
+                <div class="choice-row choice-row--three">
+                  <label class="choice"><input type="radio" name="piece-size" value="small" /><span>Pequeña</span></label>
+                  <label class="choice"><input type="radio" name="piece-size" value="medium" checked /><span>Mediana</span></label>
+                  <label class="choice"><input type="radio" name="piece-size" value="large" /><span>Grande</span></label>
+                </div>
+              </fieldset>
+              <label class="field" for="shape-set">
+                <span class="field__top"><span>Formas</span></span>
+                <select class="settings-select" id="shape-set" name="shape-set">
+                  <option value="classic">Clásicas</option>
+                  <option value="orbit">Geométricas</option>
+                  <option value="soft">Suaves</option>
+                </select>
+              </label>
+              <fieldset class="field">
+                <legend class="field__top"><span>Paleta</span></legend>
+                <div class="palette-row" role="radiogroup" aria-label="Paleta de colores">
+                  <label class="palette-choice"><input type="radio" name="palette" value="garden" checked /><span class="palette-swatch palette-swatch--garden" aria-hidden="true"></span><span class="visually-hidden">Jardín</span></label>
+                  <label class="palette-choice"><input type="radio" name="palette" value="sunset" /><span class="palette-swatch palette-swatch--sunset" aria-hidden="true"></span><span class="visually-hidden">Atardecer</span></label>
+                  <label class="palette-choice"><input type="radio" name="palette" value="ocean" /><span class="palette-swatch palette-swatch--ocean" aria-hidden="true"></span><span class="visually-hidden">Océano</span></label>
+                </div>
+              </fieldset>
+            </form>
+            <p class="settings__footnote">Cambiar los ajustes crea una partida nueva.</p>
+          </aside>
+        </section>
+
+        <section class="legend" aria-label="Tipos de ficha">
+          <p class="eyebrow eyebrow--small">Tres tipos, una misión</p>
+          <ul class="legend__list" id="legend-list">
+            <li class="legend__item"><span class="piece piece--one piece--classic" aria-hidden="true"></span><span>Tipo uno</span></li>
+            <li class="legend__item"><span class="piece piece--two piece--classic" aria-hidden="true"></span><span>Tipo dos</span></li>
+            <li class="legend__item"><span class="piece piece--three piece--classic" aria-hidden="true"></span><span>Tipo tres</span></li>
+          </ul>
+          <span class="legend__aside">Un intercambio puede cambiarlo todo.</span>
+        </section>
+
+        <section class="how-to" id="como-jugar" aria-labelledby="how-title">
+          <div class="how-to__title"><p class="eyebrow eyebrow--small">Reglas sencillas</p><h2 id="how-title">¿Cómo se juega?</h2></div>
+          <ol class="steps">
+            <li><span class="steps__number">01</span><span>Elige dos fichas del tablero. Puedes intercambiarlas aunque estén lejos.</span></li>
+            <li><span class="steps__number">02</span><span>Arrastra una ficha sobre otra, o selecciónalas con un clic o toque.</span></li>
+            <li><span class="steps__number">03</span><span>Completa el reto: cada fila debe contener fichas del mismo tipo.</span></li>
+          </ol>
+        </section>
+      </main>
+
+      <footer class="footer"><span>Hecho para pensar un poco.</span><span>Una partida, a tu ritmo <span aria-hidden="true">✳</span></span></footer>
+    </div>
+  </body>
+</html>
