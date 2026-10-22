@@ -6,7 +6,6 @@
       this.model = model;
       this.view = view;
       this.selectedIndex = null;
-      this.draggedIndex = null;
       this.isFinished = false;
       this.dimensionInput = document.querySelector("#dimension");
       this.bindEvents();
@@ -48,7 +47,6 @@
       this.view.setBoardFinished(false);
       this.view.setWinState(false);
       this.view.setStatus(statusMessage);
-      this.view.setHint("Selecciona dos fichas o arrastra una.");
     }
 
     refreshDimensionLimit() {
@@ -124,9 +122,9 @@
 
       const cell = event.target.closest("[data-cell-index]");
       if (!cell) return;
-      this.draggedIndex = Number(cell.dataset.cellIndex);
+      const index = Number(cell.dataset.cellIndex);
       event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData(MIME_TYPE, JSON.stringify({ index: this.draggedIndex }));
+      event.dataTransfer.setData(MIME_TYPE, JSON.stringify({ index }));
       cell.classList.add("cell--dragging");
     }
 
@@ -159,7 +157,6 @@
       } catch {
         this.view.setStatus("No se pudo realizar el intercambio. Prueba de nuevo.");
       }
-      this.draggedIndex = null;
     }
 
     swapAndRender(firstIndex, secondIndex) {
@@ -172,7 +169,7 @@
         this.isFinished = true;
         this.view.setBoardFinished(true);
         this.view.setWinState(true);
-        this.view.setStatus("¡Lo has conseguido! Cada fila está completa. El tablero queda bloqueado.", true);
+        this.view.setStatus("¡Lo has conseguido! Cada fila está completa. El tablero queda bloqueado.");
         this.view.board.querySelectorAll(".cell").forEach((cell) => {
           cell.classList.add("cell--win");
         });

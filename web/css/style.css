@@ -69,12 +69,6 @@ body {
   background: var(--color-paper);
 }
 
-body[data-palette="sunset"] { --palette-hue: 8; }
-body[data-palette="ocean"] {
-  --palette-hue: 195;
-  --palette-three-lightness: 36%;
-}
-
 /* Recalcular los tonos HSL en el ámbito de cada paleta seleccionada. */
 body[data-palette] {
   --color-line: hsl(var(--palette-hue) 13% 84%);

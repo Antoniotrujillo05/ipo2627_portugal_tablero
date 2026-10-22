@@ -16,7 +16,6 @@
 
     renderBoard(cells, dimension, selectedIndex = null) {
       const fragment = document.createDocumentFragment();
-      this.board.replaceChildren();
       this.board.style.setProperty("--board-dimension", dimension);
       this.boardSize.textContent = `${dimension} × ${dimension}`;
       this.board.setAttribute("aria-label", `Tablero de ${dimension} por ${dimension}`);
@@ -26,7 +25,6 @@
         const row = Math.floor(index / dimension) + 1;
         const column = (index % dimension) + 1;
         const piece = document.createElement("span");
-        const typeNumber = TYPES_TO_NUMBER[type];
 
         cell.type = "button";
         cell.className = "cell";
@@ -36,18 +34,17 @@
         cell.setAttribute("aria-pressed", String(selectedIndex === index));
         if (selectedIndex === index) cell.classList.add("cell--selected");
 
-        piece.className = `piece piece--${typeNumber} piece--${this.shapeSet}`;
+        piece.className = `piece piece--${type} piece--${this.shapeSet}`;
         piece.setAttribute("aria-hidden", "true");
         cell.append(piece);
         fragment.append(cell);
       });
 
-      this.board.append(fragment);
+      this.board.replaceChildren(fragment);
     }
 
-    setStatus(message, won = false) {
+    setStatus(message) {
       this.status.textContent = message;
-      this.boardCard.classList.toggle("board-card--won", won);
     }
 
     setWinState(active) {
@@ -106,8 +103,6 @@
       this.dimensionInput.reportValidity();
     }
   }
-
-  const TYPES_TO_NUMBER = { one: "one", two: "two", three: "three" };
 
   window.EnFila = window.EnFila || {};
   window.EnFila.GameView = GameView;
